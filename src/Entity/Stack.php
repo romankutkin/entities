@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Service\Database\TimestampTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -13,6 +14,8 @@ use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
  */
 class Stack
 {
+    use TimestampTrait;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
@@ -29,20 +32,6 @@ class Stack
      * @var string|null
      */
     private $title;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=false)
-     * 
-     * @var \DateTime|null
-     */
-    private $createdAt;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=false)
-     * 
-     * @var \DateTime|null
-     */
-    private $updatedAt;
 
     /**
      * @ORM\ManyToMany(targetEntity=Flashcard::class, inversedBy="stacks")
@@ -81,46 +70,6 @@ class Stack
     public function setTitle(string $title): self
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime|null
-     */
-    public function getCreatedAt(): ?\DateTime
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * @param \DateTime $createdAt
-     * 
-     * @return self
-     */
-    public function setCreatedAt(\DateTime $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime|null
-     */
-    public function getUpdatedAt(): ?\DateTime
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * @param \DateTime $updatedAt
-     * 
-     * @return self
-     */
-    public function setUpdatedAt(\DateTime $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
 
         return $this;
     }
