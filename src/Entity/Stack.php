@@ -9,9 +9,9 @@ use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="flashcards")
+ * @ORM\Table(name="stacks")
  */
-class Flashcard
+class Stack
 {
     /**
      * @ORM\Id
@@ -28,14 +28,7 @@ class Flashcard
      * 
      * @var string|null
      */
-    private $question;
-
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     * 
-     * @var string|null
-     */
-    private $answer;
+    private $title;
 
     /**
      * @ORM\Column(type="datetime", nullable=false)
@@ -52,13 +45,16 @@ class Flashcard
     private $updatedAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Stack::class, mappedBy="flashcards")
+     * @ORM\ManyToMany(targetEntity=Flashcard::class, inversedBy="stacks")
+     * @ORM\JoinTable(name="stack_flashcards")
+     * 
+     * @var Collection|null
      */
-    private $stacks;
+    private $flashcards;
 
     public function __construct()
     {
-        $this->stacks = new ArrayCollection();
+        $this->flashcards = new ArrayCollection();
     }
 
     /**
@@ -72,39 +68,19 @@ class Flashcard
     /**
      * @return string|null
      */
-    public function getQuestion(): ?string
+    public function getTitle(): ?string
     {
-        return $this->question;
+        return $this->title;
     }
 
     /**
-     * @param string $question
+     * @param string $title
      * 
      * @return self
      */
-    public function setQuestion(string $question): self
+    public function setTitle(string $title): self
     {
-        $this->question = $question;
-
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getAnswer(): ?string
-    {
-        return $this->answer;
-    }
-
-    /**
-     * @param string $answer
-     * 
-     * @return self
-     */
-    public function setAnswer(string $answer): self
-    {
-        $this->answer = $answer;
+        $this->title = $title;
 
         return $this;
     }
@@ -150,38 +126,35 @@ class Flashcard
     }
 
     /**
-     * @return Collection|Stack[]
+     * @return Collection
      */
-    public function getStacks(): Collection
+    public function getFlashcards(): Collection
     {
-        return $this->stacks;
+        return $this->flashcards;
     }
 
     /**
-     * @param Stack $stack
+     * @param Flashcard $flashcard
      * 
      * @return self
      */
-    public function addStack(Stack $stack): self
+    public function addFlashcard(Flashcard $flashcard): self
     {
-        if (!$this->stacks->contains($stack)) {
-            $this->stacks[] = $stack;
-            $stack->addFlashcard($this);
+        if (!$this->flashcards->contains($flashcard)) {
+            $this->flashcards[] = $flashcard;
         }
 
         return $this;
     }
 
     /**
-     * @param Stack $stack
+     * @param Flashcard $flashcard
      * 
      * @return self
      */
-    public function removeStack(Stack $stack): self
+    public function removeFlashcard(Flashcard $flashcard): self
     {
-        if ($this->stacks->removeElement($stack)) {
-            $stack->removeFlashcard($this);
-        }
+        $this->flashcards->removeElement($flashcard);
 
         return $this;
     }
