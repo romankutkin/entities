@@ -1,0 +1,9 @@
+api_stacks_create:
+    path:       /stacks
+    controller: App\Controller\Api\StackController::create
+    methods:    POST
+
+api_stacks_show:
+    path:       /stacks/{id}
+    controller: App\Controller\Api\StackController::show
+    methods:    GET
