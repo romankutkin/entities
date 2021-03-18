@@ -57,4 +57,25 @@ trait TimestampTrait
 
         return $this;
     }
+
+    /**
+     * @ORM\PrePersist
+     *
+     * @return void
+     */
+    public function createTimestamps(): void
+    {
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
+
+    /**
+     * @ORM\PreUpdate
+     *
+     * @return void
+     */
+    public function updateTimestamps(): void
+    {
+        $this->updatedAt = new \DateTime();
+    }
 }
