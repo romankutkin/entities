@@ -3,10 +3,10 @@
 namespace App\Entity;
 
 use App\Service\Database\TimestampTrait;
+use App\Service\Database\UidTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
 
 /**
  * @ORM\Entity
@@ -14,17 +14,7 @@ use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
  */
 class Stack
 {
-    use TimestampTrait;
-
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     * @ORM\GeneratedValue(strategy="CUSTOM")
-     * @ORM\CustomIdGenerator(class=UuidV4Generator::class)
-     * 
-     * @var string|null
-     */
-    private $id;
+    use UidTrait, TimestampTrait;
 
     /**
      * @ORM\Column(type="string", nullable=false)
@@ -44,14 +34,6 @@ class Stack
     public function __construct()
     {
         $this->flashcards = new ArrayCollection();
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     /**
