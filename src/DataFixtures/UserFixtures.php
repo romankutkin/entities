@@ -1,0 +1,24 @@
+<?php
+
+namespace App\DataFixtures;
+
+use App\Entity\User;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Persistence\ObjectManager;
+
+class UserFixtures extends Fixture
+{
+    public function load(ObjectManager $manager)
+    {
+        $me = new User();
+
+        $me
+            ->setUsername('romankutkin')
+            ->setFirstName('Roman')
+            ->setLastName('Kut\'kin')
+        ;
+
+        $manager->persist($me);
+        $manager->flush();
+    }
+}
