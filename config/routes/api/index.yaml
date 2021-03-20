@@ -1,0 +1,5 @@
+users:
+    resource: users.yaml
+
+stacks:
+    resource: stacks.yaml

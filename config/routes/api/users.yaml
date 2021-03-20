@@ -1,0 +1,4 @@
+api_users_show:
+    path:       /users/{username}
+    controller: App\Controller\Api\UserController::show
+    methods:    GET
