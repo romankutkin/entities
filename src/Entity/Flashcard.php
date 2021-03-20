@@ -32,6 +32,12 @@ class Flashcard
     private $answer;
 
     /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="flashcards")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     */
+    private $author;
+
+    /**
      * @ORM\ManyToMany(targetEntity=Stack::class, mappedBy="flashcards")
      */
     private $stacks;
@@ -77,6 +83,26 @@ class Flashcard
     public function setAnswer(string $answer): self
     {
         $this->answer = $answer;
+
+        return $this;
+    }
+
+    /**
+     * @return User|null
+     */
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    /**
+     * @param User $user
+     * 
+     * @return self
+     */
+    public function setAuthor(User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

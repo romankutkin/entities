@@ -25,6 +25,14 @@ class Stack
     private $title;
 
     /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="stacks")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     * 
+     * @var User|null
+     */
+    private $author;
+
+    /**
      * @ORM\ManyToMany(targetEntity=Flashcard::class, inversedBy="stacks")
      * @ORM\JoinTable(name="stack_flashcards")
      * 
@@ -53,6 +61,26 @@ class Stack
     public function setTitle(string $title): self
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * @return User|null
+     */
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    /**
+     * @param User $user
+     * 
+     * @return self
+     */
+    public function setAuthor(User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
