@@ -16,6 +16,7 @@ class UserFixtures extends Fixture
             ->setUsername('romankutkin')
             ->setFirstName('Roman')
             ->setLastName('Kut\'kin')
+            ->setPassword('secret')
         ;
 
         $manager->persist($me);

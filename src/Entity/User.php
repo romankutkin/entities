@@ -25,6 +25,13 @@ class User
     private $username;
 
     /**
+     * @ORM\Column(type="string", nullable=false)
+     * 
+     * @var string|null
+     */
+    private $password;
+
+    /**
      * @ORM\Column(type="string", nullable=true)
      * 
      * @var string|null
@@ -66,6 +73,18 @@ class User
     public function setUsername(string $username): self
     {
         $this->username = $username;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
 
         return $this;
     }
